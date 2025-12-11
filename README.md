@@ -13,3 +13,5 @@ RMSE = 5.03
 ```bash
 pip install -r requirements.txt
 python main.py
+→ Creates student_exam_model.pkl
+→ Shows perfect scatter plot
