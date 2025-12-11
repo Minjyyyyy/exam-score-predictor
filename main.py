@@ -1,5 +1,3 @@
-
-# 1. IMPORTS
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -16,7 +14,6 @@ import joblib
 
 
 
-# 2. GENERATE SYNTHETIC DATASET 
 np.random.seed(42)
 
 n = 500
@@ -42,7 +39,7 @@ df = pd.DataFrame({
 
 df.head()
 
-# 3. SPLIT DATA
+
 X = df.drop("exam_score", axis=1)
 y = df["exam_score"]
 
@@ -54,14 +51,12 @@ print("Train size:", X_train.shape)
 print("Test size:", X_test.shape)
 
 
-# 4. TRAIN MODEL (Linear Regression)
 model = LinearRegression()
 model.fit(X_train, y_train)
 
 print("Model trained!")
 
 
-# 5. EVALUATION
 preds = model.predict(X_test)
 
 mae = mean_absolute_error(y_test, preds)
@@ -76,14 +71,23 @@ print("RMSE:", rmse)
 print("R²  :", r2)
 
 
-# 6. SAVE MODEL
+
 joblib.dump(model, "student_exam_model.pkl")
 
 print("Model saved as student_exam_model.pkl")
 
-# 7. PLOT RESULTS
-plt.scatter(y_test, preds)
+
+
+plt.figure(figsize=(8, 6))
+plt.scatter(y_test, preds, alpha=0.7, color='#1f77b4')
+min_val = min(y_test.min(), preds.min())
+max_val = max(y_test.max(), preds.max())
+plt.plot([min_val, max_val], [min_val, max_val], 'r--', lw=2, label='Perfect prediction')  # красная линия
 plt.xlabel("Real Scores")
 plt.ylabel("Predicted Scores")
 plt.title("Real vs Predicted Exam Scores")
+plt.legend()
+plt.grid(True, alpha=0.3)
 plt.show()
+
+
